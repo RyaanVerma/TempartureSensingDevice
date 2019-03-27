@@ -1,0 +1,28 @@
+#include <dht.h>
+#include <LiquidCrystal.h>
+
+dht DHT;
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+#define DHT11_PIN 7
+
+void setup(){
+   lcd.begin(16, 2);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  int chk = DHT.read11(DHT11_PIN);
+   float t = DHT.temperature;
+  float h = DHT.humidity;
+  lcd.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
+  lcd.print("Temp.: "); // Prints string "Temp." on the LCD
+  lcd.print(t); // Prints the temperature value from the sensor
+  lcd.print(" C");
+  lcd.setCursor(0,1);
+  lcd.print("Humi.: ");
+  lcd.print(h);
+  lcd.print(" %");
+  delay(2000);
+}
